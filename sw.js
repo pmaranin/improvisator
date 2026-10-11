@@ -4,7 +4,7 @@
 // and the cache is refreshed in the background. An edit to valeurs.txt or index.html
 // therefore shows up the next time the app is opened with a connection.
 
-const CACHE = 'improvisator-v1';
+const CACHE = 'improvisator-v2';
 const SHELL = [
   './',
   './index.html',

@@ -1,7 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" rx="22" fill="#15121b"/>
-  <rect x="22" y="22" width="27" height="27" rx="6" fill="#5ba9ff"/>
-  <rect x="51" y="22" width="27" height="27" rx="6" fill="#ff9e47"/>
-  <rect x="22" y="51" width="27" height="27" rx="6" fill="#ff76b2"/>
-  <rect x="51" y="51" width="27" height="27" rx="6" fill="#52d08e"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <radialGradient id="spot" cx="50%" cy="28%" r="62%">
+      <stop offset="0" stop-color="#fff0c8" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#fff0c8" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="face">
+      <path d="M232 318 C232 262 268 236 318 232 C440 220 584 220 706 232 C756 236 792 262 792 318 L792 486 C792 690 676 806 512 846 C348 806 232 690 232 486 Z"/>
+    </clipPath>
+  </defs>
+  <rect width="1024" height="1024" fill="#15121b"/>
+  <rect width="1024" height="1024" fill="url(#spot)"/>
+  <g clip-path="url(#face)">
+    <rect x="0" y="0" width="512" height="540" fill="#5ba9ff"/>
+    <rect x="512" y="0" width="512" height="540" fill="#ff9e47"/>
+    <rect x="0" y="540" width="512" height="484" fill="#ff76b2"/>
+    <rect x="512" y="540" width="512" height="484" fill="#52d08e"/>
+    <path d="M512 200V880M200 540H824" stroke="#15121b" stroke-width="18"/>
+  </g>
+  <path d="M318 456 Q392 368 466 456 Q392 428 318 456Z" fill="#15121b"/>
+  <path d="M558 456 Q632 368 706 456 Q632 428 558 456Z" fill="#15121b"/>
+  <path d="M378 628 Q512 762 646 628" fill="none" stroke="#15121b" stroke-width="40" stroke-linecap="round"/>
 </svg>
