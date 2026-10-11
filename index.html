@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Improvisator</title>
+<meta name="description" content="Un personnage d'impro tiré au sort avant d'entrer en scène : métier, particularité physique, émotion et relation à l'autre.">
+<meta name="theme-color" content="#15121b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Improvisator">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Big+Shoulders+Display:wght@800;900&display=swap">
+<style>
+/* Layout: one-screen phone app. Header, four fixed-colour character cards sharing the height, re-roll button in thumb reach.
+   Single dark "backstage" theme by choice: it is read in a dim wing just before going on stage. */
+:root {
+  --stage: #15121b;
+  --line: #3b3447;
+  --ink: #f4f0ea;
+  --ink-dim: #a69eb3;
+  --card-ink: #17131d;
+  --spot: rgba(255, 238, 200, 0.11);
+  --c-metier: #5ba9ff;
+  --c-physique: #ff9e47;
+  --c-emotion: #ff76b2;
+  --c-relation: #52d08e;
+  --font-display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: dark;
+}
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+  padding-block: env(safe-area-inset-top, 0px) env(safe-area-inset-bottom, 0px);
+}
+body {
+  height: 100%;
+  margin: 0;
+  background-color: var(--stage);
+  background-image: radial-gradient(ellipse 90% 40% at 50% -8%, var(--spot), transparent 70%);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app {
+  box-sizing: border-box;
+  min-height: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding-inline: 16px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 16px 14px;
+}
+.brand { min-width: 0; }
+.brand h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 2rem;
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+.draw {
+  margin: 6px 0 0;
+  font-size: 0.75rem;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+.lang {
+  display: inline-flex;
+  flex: none;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+.lang button {
+  min-width: 44px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-dim);
+  font: 700 0.8rem/1 var(--font-body);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--card-ink); }
+
+/* Cards */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+}
+.card {
+  flex: 1 1 auto;
+  min-height: 108px;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px 16px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--c);
+  color: var(--card-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  perspective: 700px;
+  transition: transform 120ms ease;
+}
+.card:active { transform: scale(0.985); }
+.card[data-key="metier"]   { --c: var(--c-metier); }
+.card[data-key="physique"] { --c: var(--c-physique); }
+.card[data-key="emotion"]  { --c: var(--c-emotion); }
+.card[data-key="relation"] { --c: var(--c-relation); }
+
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.card-head .again { margin-left: auto; opacity: 0.55; }
+.card svg { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.value {
+  display: block;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 6vw, 1.8rem);
+  line-height: 1.15;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  transform-origin: 50% 60%;
+}
+.value.long { font-size: clamp(1.15rem, 4.9vw, 1.45rem); }
+
+/* Re-roll */
+.actions {
+  position: sticky;
+  bottom: env(safe-area-inset-bottom, 0px);
+  padding-block: 14px 16px;
+  background: linear-gradient(to bottom, transparent, var(--stage) 16px);
+}
+.reroll {
+  width: 100%;
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--card-ink);
+  font: 900 1.6rem/1 var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: transform 120ms ease;
+}
+.reroll:active { transform: scale(0.98); }
+.reroll svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+.reroll svg .pip { fill: currentColor; stroke: none; }
+.hint {
+  margin: 10px 0 0;
+  font-size: 0.78rem;
+  color: var(--ink-dim);
+  text-align: center;
+}
+.hint.error { color: var(--c-emotion); }
+
+button { touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+/* Short phones (iPhone SE and smaller): keep everything on one screen. */
+@media (max-height: 640px) {
+  header { padding-block: 10px; }
+  .brand h1 { font-size: 1.7rem; }
+  .cards { gap: 8px; }
+  .card { min-height: 0; gap: 8px; padding: 10px 14px 12px; }
+  .value { font-size: 1.25rem; }
+  .value.long { font-size: 1.05rem; }
+  .actions { padding-block: 10px 12px; }
+  .reroll { min-height: 54px; }
+  .hint { margin-top: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .reroll { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">
+      <h1>Improvisator</h1>
+      <p class="draw" id="draw">Tirage n° 1</p>
+    </div>
+    <div class="lang" role="group" aria-label="Langue">
+      <button type="button" id="lang-fr" data-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" id="lang-en" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <main class="cards" aria-live="polite">
+    <button type="button" class="card" id="card-metier" data-key="metier">
+      <span class="card-head">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94z"/></svg>
+        <span class="label">Métier ou loisir</span>
+        <svg class="again" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8.5"/><path d="M20 3.5v5h-5"/></svg>
+      </span>
+      <span class="value">…</span>
+    </button>
+
+    <button type="button" class="card" id="card-physique" data-key="physique">
+      <span class="card-head">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.5" r="2.2"/><path d="M12 7.5v7M12 14.5 8.5 21.5M12 14.5l3.5 7M6 10.5h12"/></svg>
+        <span class="label">Particularité physique</span>
+        <svg class="again" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8.5"/><path d="M20 3.5v5h-5"/></svg>
+      </span>
+      <span class="value">…</span>
+    </button>
+
+    <button type="button" class="card" id="card-emotion" data-key="emotion">
+      <span class="card-head">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5s1.3 2 3.5 2 3.5-2 3.5-2M9 9.5h.01M15 9.5h.01"/></svg>
+        <span class="label">Émotion</span>
+        <svg class="again" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8.5"/><path d="M20 3.5v5h-5"/></svg>
+      </span>
+      <span class="value">…</span>
+    </button>
+
+    <button type="button" class="card" id="card-relation" data-key="relation">
+      <span class="card-head">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg>
+        <span class="label">Relation à l’autre</span>
+        <svg class="again" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8.5"/><path d="M20 3.5v5h-5"/></svg>
+      </span>
+      <span class="value">…</span>
+    </button>
+  </main>
+
+  <div class="actions">
+    <button type="button" class="reroll" id="reroll">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle class="pip" cx="8" cy="8" r="1.5"/><circle class="pip" cx="16" cy="8" r="1.5"/><circle class="pip" cx="12" cy="12" r="1.5"/><circle class="pip" cx="8" cy="16" r="1.5"/><circle class="pip" cx="16" cy="16" r="1.5"/></svg>
+      <span id="reroll-label">Relancer</span>
+    </button>
+    <p class="hint" id="hint">Touche une carte pour ne changer qu’elle</p>
+  </div>
+</div>
+
+<script>
+const KEYS = ['metier', 'physique', 'emotion', 'relation'];
+
+const UI = {
+  fr: {
+    metier: 'Métier ou loisir',
+    physique: 'Particularité physique',
+    emotion: 'Émotion',
+    relation: 'Relation à l’autre',
+    reroll: 'Relancer',
+    draw: (n) => `Tirage n° ${n}`,
+    hint: 'Touche une carte pour ne changer qu’elle',
+    error: 'Impossible de charger la liste (valeurs.txt). Vérifie ta connexion puis recharge la page.',
+    langGroup: 'Langue',
+  },
+  en: {
+    metier: 'Job or hobby',
+    physique: 'Physical trait',
+    emotion: 'Emotion',
+    relation: 'Relationship',
+    reroll: 'Re-roll',
+    draw: (n) => `Draw #${n}`,
+    hint: 'Tap a card to change just that one',
+    error: 'Could not load the list (valeurs.txt). Check your connection, then reload the page.',
+    langGroup: 'Language',
+  },
+};
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let lists = null;      // { metier: [{ fr, en }], ... }
+const current = {};    // index of the drawn value, per category
+let drawCount = 1;
+let lang = 'fr';
+let loadFailed = false;
+
+// valeurs.txt format: "[SECTION]" headers, one "français | English" value per line, "#" comments.
+function parseValues(text) {
+  const out = {};
+  let section = null;
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line || line.startsWith('#')) continue;
+    const header = line.match(/^\[(\w+)\]$/);
+    if (header) {
+      section = header[1].toLowerCase();
+      out[section] = [];
+      continue;
+    }
+    if (!section) continue;
+    const [fr, en] = line.split('|').map((part) => part.trim());
+    if (fr) out[section].push({ fr, en: en || fr });
+  }
+  return out;
+}
+
+function pickIndex(key) {
+  const count = (lists[key] || []).length;
+  if (count <= 1) return 0;
+  let i;
+  do {
+    i = Math.floor(Math.random() * count);
+  } while (i === current[key]);
+  return i;
+}
+
+function textFor(key) {
+  const item = lists && lists[key] && lists[key][current[key]];
+  return item ? item[lang] : '—';
+}
+
+function renderValue(key, animateDelay = null) {
+  const el = document.querySelector(`#card-${key} .value`);
+  const apply = () => {
+    const text = textFor(key);
+    el.textContent = text;
+    el.classList.toggle('long', text.length > 36);
+  };
+  if (animateDelay === null || reduceMotion.matches || !el.animate) {
+    apply();
+    return;
+  }
+  const out = el.animate(
+    [{ transform: 'rotateX(0deg)', opacity: 1 }, { transform: 'rotateX(90deg)', opacity: 0 }],
+    { duration: 130, delay: animateDelay, easing: 'ease-in', fill: 'forwards' }
+  );
+  out.onfinish = () => {
+    apply();
+    out.cancel();
+    el.animate(
+      [{ transform: 'rotateX(-90deg)', opacity: 0 }, { transform: 'rotateX(0deg)', opacity: 1 }],
+      { duration: 200, easing: 'cubic-bezier(.2,.9,.3,1.2)' }
+    );
+  };
+}
+
+function roll(key, animateDelay) {
+  if (!lists) return;
+  current[key] = pickIndex(key);
+  renderValue(key, animateDelay);
+}
+
+function rollAll(animate) {
+  KEYS.forEach((key, i) => roll(key, animate ? i * 70 : null));
+}
+
+function renderHint() {
+  const hint = document.getElementById('hint');
+  hint.textContent = loadFailed ? UI[lang].error : UI[lang].hint;
+  hint.classList.toggle('error', loadFailed);
+}
+
+function setLang(next) {
+  lang = next;
+  const t = UI[lang];
+  document.documentElement.lang = lang;
+  KEYS.forEach((key) => {
+    document.querySelector(`#card-${key} .label`).textContent = t[key];
+    if (lists) renderValue(key);
+  });
+  document.getElementById('reroll-label').textContent = t.reroll;
+  document.getElementById('draw').textContent = t.draw(drawCount);
+  document.querySelector('.lang').setAttribute('aria-label', t.langGroup);
+  document.querySelectorAll('.lang button').forEach((b) => {
+    b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+  });
+  renderHint();
+  try { localStorage.setItem('improvisator-lang', lang); } catch (e) {}
+}
+
+document.getElementById('reroll').addEventListener('click', () => {
+  if (!lists) return;
+  drawCount += 1;
+  document.getElementById('draw').textContent = UI[lang].draw(drawCount);
+  rollAll(true);
+});
+
+document.querySelectorAll('.card').forEach((card) => {
+  card.addEventListener('click', () => roll(card.dataset.key, 0));
+});
+
+document.querySelectorAll('.lang button').forEach((b) => {
+  b.addEventListener('click', () => setLang(b.dataset.lang));
+});
+
+let savedLang = null;
+try { savedLang = localStorage.getItem('improvisator-lang'); } catch (e) {}
+setLang(savedLang === 'en' ? 'en' : 'fr');
+
+fetch('valeurs.txt')
+  .then((response) => {
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return response.text();
+  })
+  .then((text) => {
+    lists = parseValues(text);
+    rollAll(false);
+  })
+  .catch((err) => {
+    console.error('[Improvisator] valeurs.txt:', err);
+    loadFailed = true;
+    KEYS.forEach((key) => renderValue(key));
+    renderHint();
+  });
+
+// Offline support: see sw.js.
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch((err) => console.warn('[Improvisator] service worker:', err));
+  });
+}
+</script>
+</body>
+</html>

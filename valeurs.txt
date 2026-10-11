@@ -1,0 +1,214 @@
+# Improvisator — listes de valeurs
+#
+# Format :
+#   - une valeur par ligne : texte français | English text
+#     (si la partie anglaise manque, l'app affiche le français dans les deux langues)
+#   - [METIER], [PHYSIQUE], [EMOTION], [RELATION] ouvrent chaque section
+#   - les lignes qui commencent par # sont des commentaires (ignorées par l'app)
+#   - les lignes vides sont ignorées
+#
+# Règle d'écriture : écriture inclusive (Mécanicien·ne, Grand·e) ;
+# relations formulées de façon neutre quand c'est possible
+# (en anglais : they / them pour l'autre personne).
+# Critère de choix : le public doit pouvoir le reconnaître en quelques secondes
+# (mime, posture ou dialogue).
+
+
+[METIER]
+# --- Métiers ---
+Mécanicien·ne | Mechanic
+Médecin | Doctor
+Chirurgien·ne | Surgeon
+Infirmier·ère | Nurse
+Dentiste | Dentist
+Vétérinaire | Vet
+Policier·ère | Police officer
+Pompier·ère | Firefighter
+Militaire | Soldier
+Boulanger·ère | Baker
+Boucher·ère | Butcher
+Cuisinier·ère | Cook
+Serveur·se | Waiter
+Caissier·ère | Cashier
+Coiffeur·se | Hairdresser
+Plombier·ère | Plumber
+Électricien·ne | Electrician
+Maçon·ne | Bricklayer
+Jardinier·ère | Gardener
+Agriculteur·rice | Farmer
+Marin | Sailor
+Facteur·rice | Mail carrier
+Chauffeur·se de taxi | Taxi driver
+Pilote d'avion | Airline pilot
+Hôtesse / steward de l'air | Flight attendant
+Professeur·e | Teacher
+Bibliothécaire | Librarian
+Avocat·e | Lawyer
+Juge | Judge
+Journaliste | Journalist
+Photographe | Photographer
+Magicien·ne | Magician
+Chef·fe d'orchestre | Orchestra conductor
+Astronaute | Astronaut
+Archéologue | Archaeologist
+Maître-nageur·se | Lifeguard
+Agent·e immobilier·ère | Real estate agent
+Prof de yoga | Yoga teacher
+# --- Loisirs ---
+Pêcheur·se à la ligne | Angler
+Golfeur·se | Golfer
+Joueur·se de tennis | Tennis player
+Boxeur·se | Boxer
+Alpiniste | Mountaineer
+Danseur·se étoile | Principal ballet dancer
+Pianiste | Pianist
+DJ | DJ
+Tricoteur·se passionné·e | Keen knitter
+Bodybuilder | Bodybuilder
+
+
+[PHYSIQUE]
+# --- Silhouette ---
+Très grand·e | Very tall
+Tout·e petit·e | Tiny
+Très musclé·e | Very muscular
+Très maigre | Very skinny
+Bedonnant·e | Pot-bellied
+Très âgé·e et courbé·e | Very old and stooped
+Très souple | Very flexible
+# --- Posture et démarche ---
+Dos voûté | Hunched back
+Boite d'une jambe | Walks with a limp
+Marche sur la pointe des pieds | Walks on tiptoe
+Jambes arquées (démarche de cow-boy) | Bow-legged (cowboy walk)
+Pieds en canard | Duck-footed
+Torse bombé | Chest puffed out
+Nez en l'air | Nose in the air
+Mène avec le ventre | Leads with the belly
+Raide comme un piquet | Stiff as a board
+Sans aucun tonus, tout en mollesse | No muscle tone, all floppy
+Toujours penché·e en avant, pressé·e | Always leaning forward, in a hurry
+Un bras en écharpe | Arm in a sling
+Marche sur des talons très hauts | Walks in very high heels
+# --- Visage et voix ---
+Très myope, plisse les yeux | Very short-sighted, squints
+Sourire figé en permanence | Frozen smile
+Sourcils toujours froncés | Permanent frown
+Voix très aiguë | Very high-pitched voice
+Voix très grave | Very deep voice
+Zozote | Has a lisp
+Bégaie | Stutters
+Parle très fort | Talks very loudly
+Chuchote tout le temps | Always whispers
+Accent très prononcé | Very strong accent
+# --- Tics et états du corps ---
+Cligne des yeux sans arrêt | Blinks constantly
+Renifle sans arrêt | Sniffs constantly
+Se gratte partout | Itches all over
+A le hoquet | Has hiccups
+Tremble légèrement | Slightly shaky
+Gesticule énormément | Gestures wildly
+Bras toujours croisés | Arms always crossed
+Mal de dos | Bad back
+Torticolis | Stiff neck
+Essoufflé·e | Out of breath
+Toujours frigorifié·e | Always freezing
+
+
+[EMOTION]
+Joyeux·se | Joyful
+Triste | Sad
+En colère | Angry
+Amoureux·se | In love
+Se sent supérieur·e | Feels superior
+Jaloux·se | Jealous
+Terrorisé·e | Terrified
+Anxieux·se | Anxious
+Excité·e comme un enfant | Excited like a child
+Fier·ère | Proud
+Honteux·se | Ashamed
+Timide | Shy
+S'ennuie à mourir | Bored to death
+Épuisé·e | Exhausted
+Nostalgique | Nostalgic
+Méfiant·e | Suspicious
+Paranoïaque | Paranoid
+Euphorique | Euphoric
+Dégoûté·e | Disgusted
+Émerveillé·e par tout | Amazed by everything
+Impatient·e | Impatient
+Vexé·e | Offended
+Mélancolique | Melancholic
+Arrogant·e | Arrogant
+Naïf·ve | Naive
+Optimiste à toute épreuve | Relentlessly optimistic
+Pessimiste | Pessimistic
+Stressé·e | Stressed out
+Zen et très serein·e | Totally zen
+Dans la lune | Daydreaming
+Curieux·se | Curious
+Se sent coupable | Feels guilty
+Désespéré·e | Desperate
+Soulagé·e | Relieved
+Grincheux·se | Grumpy
+Un peu pompette | A bit tipsy
+Hypocondriaque | Hypochondriac
+Séducteur·rice | Flirtatious
+Gêné·e et mal à l'aise | Embarrassed and awkward
+Blasé·e | Jaded
+Admiratif·ve | Full of admiration
+Au bord des larmes | On the verge of tears
+Retient un fou rire | Holding back the giggles
+Déterminé·e | Determined
+Cache un secret | Hiding a secret
+
+
+[RELATION]
+# --- Famille ---
+Je suis son père / sa mère | I'm their father / mother
+C'est mon père / ma mère | They're my father / mother
+Je suis son grand-père / sa grand-mère | I'm their grandfather / grandmother
+On est frères et sœurs et je suis l'aîné·e | We're siblings and I'm the eldest
+On est jumeaux·elles | We're twins
+On est marié·e·s depuis 30 ans | We've been married for 30 years
+On vient de divorcer | We just got divorced
+C'est mon ex | They're my ex
+C'est un·e cousin·e perdu·e de vue depuis 20 ans | A cousin I haven't seen in 20 years
+# --- Sentiments ---
+J'en suis secrètement amoureux·se | I'm secretly in love with them
+Je le/la déteste | I hate them
+Je l'admire profondément | I deeply admire them
+Je l'envie terriblement | I'm terribly envious of them
+Je m'en méfie | I don't trust them
+C'est mon idole | They're my idol
+C'est mon/ma meilleur·e ami·e | They're my best friend
+C'est mon pire ennemi / ma pire ennemie | They're my worst enemy
+C'est mon premier amour | They're my first love
+Je veux l'épouser | I want to marry them
+Je cherche son approbation | I crave their approval
+Je pense que c'est un·e espion·ne | I think they're a spy
+# --- Travail et statut ---
+C'est mon/ma patron·ne | They're my boss
+Je suis son/sa patron·ne | I'm their boss
+C'est mon/ma prof | They're my teacher
+Je suis son mentor | I'm their mentor
+C'est mon/ma rival·e | They're my rival
+Je suis son/sa garde du corps | I'm their bodyguard
+Je suis son/sa domestique | I'm their servant
+C'est mon/ma pire client·e | They're my worst customer
+C'est mon médecin | They're my doctor
+Je suis son/sa coach | I'm their coach
+C'est mon/ma propriétaire et j'ai trois mois de loyer en retard | They're my landlord and I'm three months behind on rent
+Je veux sa place | I want their job
+Je suis son/sa fan n°1 | I'm their number one fan
+# --- Histoire commune ---
+On est colocs | We're roommates
+C'est mon/ma voisin·e bruyant·e | They're my noisy neighbor
+Je lui dois de l'argent | I owe them money
+Il/Elle me doit de l'argent | They owe me money
+Je lui dois la vie | They saved my life
+Je l'ai trahi·e et il/elle ne le sait pas | I betrayed them and they don't know
+On a cambriolé une banque ensemble | We robbed a bank together
+On s'est déjà vu·e·s mais je ne sais plus où | We've met before but I can't remember where
+On vient de se rencontrer sur une appli | We just matched on a dating app
+On était à l'école ensemble | We went to school together
