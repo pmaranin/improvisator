@@ -8,7 +8,9 @@ A phone web app that draws a random improv character before you go on stage:
 - a **relationship** with the other actor (green)
 
 French by default, with an EN switch. Tap **Relancer** to draw a new character, or tap one card to change only that card.
-After the first visit it works offline, and you can add it to your home screen like an app.
+It is a PWA: after the first visit it works offline, and it can be installed on the home screen like a native app.
+The **Installer l'app** link under the button opens the install prompt (Android, Chrome and Edge),
+or on iPhone/iPad shows how to do it from the Share menu.
 
 ## Editing the values
 
